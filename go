@@ -15,12 +15,12 @@ packer version >/dev/null 2>&1 || { echo >&2 "Packer is required. Please install
 }
 
 function helptext {
-    echo "usage: ./go <command>"
+    echo "Usage: ./go <command>"
     echo ""
     echo "Available commands are:"
-    echo "    build        build image"
-    echo "    deploy       deploy image to local VM"
-    echo "    destroy      destroy local VM"
+    echo "    build        Build image"
+    echo "    deploy       Deploy image to local VM"
+    echo "    destroy      Destroy local VM"
 }
 
 function buildvm {
