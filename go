@@ -5,7 +5,7 @@ set -e -u
 VBoxManage -v >/dev/null 2>&1 || { echo >&2 "VirtualBox is required. Please install the latest version."; exit 1; }
 vagrant -v >/dev/null 2>&1 || { echo >&2 "Vagrant is required. Please install the latest version."; exit 1; }
 chef -v >/dev/null 2>&1 || { echo >&2 "Chef Development Kit is required. Please install the latest version."; exit 1; }
-packer -v >/dev/null 2>&1 || { echo >&2 "Packer is required. Please install the latest version."; exit 1; }
+packer version >/dev/null 2>&1 || { echo >&2 "Packer is required. Please install the latest version."; exit 1; }
 
 [[ $(vagrant plugin list) == *vagrant-vbguest* ]] || { vagrant plugin install vagrant-vbguest; }
 
@@ -35,8 +35,10 @@ function buildvm {
 case "$1" in
     build) buildvm
     ;;
-    deploy)  vagrant up --no-provision
+    deploy) vagrant up --no-provision
     ;;
     destroy) vagrant destroy -f
+    ;;
+    help) helptext
     ;;
 esac
