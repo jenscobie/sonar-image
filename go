@@ -2,6 +2,10 @@
 
 set -e -u
 
+[[ $(vagrant plugin list) == *vagrant-vbguest* ]] || {
+    vagrant plugin install vagrant-vbguest
+}
+
 function helptext {
     echo "usage: ./go <command>"
     echo ""
@@ -18,7 +22,9 @@ function buildvm {
     vagrant box add sonarqube sonarqube.box
 }
 
-[[ $@ ]] || { helptext; exit 1; }
+[[ $@ ]] || {
+    helptext; exit 1;
+}
 
 case "$1" in
     build) buildvm
