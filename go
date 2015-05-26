@@ -2,8 +2,15 @@
 
 set -e -u
 
-[[ $(vagrant plugin list) == *vagrant-vbguest* ]] || {
-    vagrant plugin install vagrant-vbguest
+VBoxManage -v >/dev/null 2>&1 || { echo >&2 "VirtualBox is required. Please install the latest version."; exit 1; }
+vagrant -v >/dev/null 2>&1 || { echo >&2 "Vagrant is required. Please install the latest version."; exit 1; }
+chef -v >/dev/null 2>&1 || { echo >&2 "Chef Development Kit is required. Please install the latest version."; exit 1; }
+
+[[ $(vagrant plugin list) == *vagrant-vbguest* ]] || { vagrant plugin install vagrant-vbguest; }
+
+[[ -d "provisioners/chef/berks-cookbooks" ]] || {
+    chef exec berks vendor;
+    mv berks-cookbooks provisioners/chef;
 }
 
 function helptext {
@@ -22,9 +29,7 @@ function buildvm {
     vagrant box add sonarqube sonarqube.box
 }
 
-[[ $@ ]] || {
-    helptext; exit 1;
-}
+[[ $@ ]] || { helptext; exit 1; }
 
 case "$1" in
     build) buildvm

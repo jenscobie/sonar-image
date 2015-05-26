@@ -60,7 +60,7 @@
     },
     {
       "type": "chef-solo",
-      "cookbook_paths": ["provisioners/chef/cookbooks"],
+      "cookbook_paths": ["provisioners/chef/berks-cookbooks"],
       "roles_path": "provisioners/chef/roles",
       "run_list": ["role[webserver]"]
     }

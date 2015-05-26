@@ -1,0 +1,7 @@
+DEPENDENCIES
+  java
+  sonarqube
+
+GRAPH
+  java (1.31.0)
+  sonarqube (0.3.0)

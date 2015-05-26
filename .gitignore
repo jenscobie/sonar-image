@@ -1,4 +1,6 @@
 /.idea/
 /.vagrant/
 
+provisioners/chef/berks-cookbooks
+
 sonarqube.box
