@@ -1,0 +1,27 @@
+{
+  "name": "webserver",
+  "description": "SonarQube web server",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "java": {
+      "install_flavor": "oracle",
+      "jdk_version": 8,
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    },
+    "sonarqube": {
+      "version": "5.1",
+      "checksum": "da651ef7367ea00348d75cef988dff57027834358413b640bdba23e90a06f8af"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[java]",
+    "recipe[sonarqube]"
+  ],
+  "env_run_lists": {
+  }
+}

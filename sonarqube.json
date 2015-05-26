@@ -1,0 +1,68 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+      ],
+      "boot_wait": "4s",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "Ubuntu_64",
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum": "91bd1cfba65417bfa04567e4f64b5c55",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://releases.ubuntu.com/14.10/ubuntu-14.10-server-amd64.iso",
+      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "4"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "sonarqube.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "provisioners/shell/vagrant-user.sh",
+        "provisioners/shell/vagrant-sshkey.sh",
+        "provisioners/shell/ubuntu-update.sh",
+        "provisioners/shell/ubuntu.sh"
+      ],
+      "execute_command": "echo 'vagrant' | sudo -S sh '{{ .Path }}'"
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["provisioners/chef/cookbooks"],
+      "roles_path": "provisioners/chef/roles",
+      "run_list": ["role[webserver]"]
+    }
+  ]
+}
