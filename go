@@ -21,6 +21,8 @@ function helptext {
     echo "    build        Build image"
     echo "    deploy       Deploy image to local VM"
     echo "    destroy      Destroy local VM"
+    echo "    start        Start the server"
+    echo "    stop         Stop the server"
 }
 
 function buildvm {
@@ -40,5 +42,9 @@ case "$1" in
     destroy) vagrant destroy -f
     ;;
     help) helptext
+    ;;
+    start) vagrant ssh --command 'service sonarqube start'; exit;
+    ;;
+    stop) vagrant ssh --command 'service sonarqube stop'; exit;
     ;;
 esac

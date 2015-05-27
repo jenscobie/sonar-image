@@ -22,7 +22,8 @@ can spin up with Vagrant and easily incorporate into your local build process.
 1. Install the requirements listed above
 2. Run ```./go build```
 3. Run ```./go deploy```
-4. Visit [http://192.168.50.5:9000](http://192.168.50.5:9000)
+4. Run ```./go start```
+5. Visit [http://192.168.50.5:9000](http://192.168.50.5:9000)
 
 ## Usage
 
@@ -31,7 +32,9 @@ can spin up with Vagrant and easily incorporate into your local build process.
     Available commands are:
         build        Build image
         deploy       Deploy image to local VM
-        destroy      Destroy local VM 
+        destroy      Destroy local VM
+        start        Start the server
+        stop         Stop the server
 
 ## Author
 
