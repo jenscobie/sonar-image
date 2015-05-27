@@ -12,7 +12,8 @@
     },
     "sonarqube": {
       "version": "5.1",
-      "checksum": "da651ef7367ea00348d75cef988dff57027834358413b640bdba23e90a06f8af"
+      "checksum": "da651ef7367ea00348d75cef988dff57027834358413b640bdba23e90a06f8af",
+      "user": "vagrant"
     }
   },
   "override_attributes": {
